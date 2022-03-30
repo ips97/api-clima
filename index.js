@@ -6,6 +6,7 @@ const handlebars = require("express-handlebars");
 const path = require("path");
 
 
+
     // Handlebars
         app.engine('handlebars', handlebars.engine({defaultLayout: 'main',
         runtimeOptions:{
@@ -29,10 +30,6 @@ const clima = {
     units: "metric"
 }
 
-async function atividade(){
-
-}
-
 
 app.get("/", (req, res)=>{
     res.render("index")
@@ -44,28 +41,27 @@ app.post("/", async(req, res)=>{
     country = "BR"
 
     try {
-        // response é a resposta do axios, mas eu tiro o data de dentro do response
+        // busca na api informacoes com parametros informados em parenteses
     const tempo = await axios(`${clima.base}weather?q=${city},${country}&lang=${clima.lang}&units=${clima.units}&APPID=${clima.key}`);
-
-    const  atividade = await axios("https://raw.githubusercontent.com/probono-digital/DesafioTecnico/main/MOCK_DATA.json")
-
-    console.log(atividade)
-    console.log(tempo)
     
-     //atividade.findAll({ativdade.data.})   
+    const cidade = tempo.data.name // pega a propriedade e atribui a variavel
+    const agora = tempo.data.weather[0].main // pega a propriedade e atribui a variavel
+    
+    // recebe API 
+    const  atividade = await axios(`https://raw.githubusercontent.com/probono-digital/DesafioTecnico/main/MOCK_DATA.json`)
 
-    res.render("clima", {tempo: tempo, atividade: atividade})
+    // faz um filtro no json pegando objetos onde o objeto tenha propriedade igual ao parametro agora
+    const lista = atividade.data.filter((item) => {
+       return (item.suggested_weather_conditions == agora)
+    })
 
-    } catch (error) {
+    res.render("clima", {tempo: tempo, lista: lista})
+    }catch (error) {
+        console.error(error)
         res.render("index")
-    }
-    
+    }  
 })
 
-
-app.get("/:city", (req, res)=>{
-    console.log("")
-})
 
 
 app.listen("8081", (req,res)=>{
