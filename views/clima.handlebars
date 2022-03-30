@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <button><a href="/">Início</a></button>
 <hr>
 
@@ -13,4 +14,21 @@
 
 {{else}}
 <h4 class="mt-3">Nenhuma atividade a realizar</h4>
+=======
+<button><a href="/">Início</a></button>
+<hr>
+
+<h1>O Clima em {{tempo.data.name}} it's {{tempo.data.weather.[0].[description]}}</h1> 
+<hr>
+
+<br>
+
+<h3> O que pode ser feito:</h3>
+{{#each lista}}
+<br>
+    <li>{{this.activity_title}}</li>
+
+{{else}}
+<h4 class="mt-3">Nenhuma atividade a realizar</h4>
+>>>>>>> 04df2d68f29da0fef8c86207a1eb5cbde0df2b3b
 {{/each}}
