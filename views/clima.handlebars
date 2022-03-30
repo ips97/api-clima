@@ -1,7 +1,16 @@
 <button><a href="/">Início</a></button>
+<hr>
 
+<h1>O Clima em {{tempo.data.name}} it's {{tempo.data.weather.[0].[description]}}</h1> 
+<hr>
 
-<h1>O Clima em {{tempo.data.name}} está {{tempo.data.weather.[0].[main]}}</h1> 
+<br>
 
+<h3> O que pode ser feito:</h3>
+{{#each lista}}
+<br>
+    <li>{{this.activity_title}}</li>
 
-<p>{{atividade.data.[2].suggested_weather_conditions}}</p>
+{{else}}
+<h4 class="mt-3">Nenhuma atividade a realizar</h4>
+{{/each}}
