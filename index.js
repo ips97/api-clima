@@ -57,7 +57,6 @@ app.post("/", async(req, res)=>{
 
     res.render("clima", {tempo: tempo, lista: lista})
     }catch (error) {
-        console.error(error)
         res.render("index")
     }  
 })
